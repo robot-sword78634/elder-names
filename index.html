@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lovecraftian Name Generator</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #0b0b0b;
+            color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #f5f5f5;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #name {
+            font-size: 1.5em;
+            margin-top: 10px;
+            color: #a2d5c6;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lovecraftian Name Generator</h1>
+    <button onclick="generateName()">Generate Name</button>
+    <div id="name">Click the button to summon a name...</div>
+
+    <script>
+        const syllablesStart = [
+            "Az", "Yog", "Cth", "Shub", "Ny", "Thul", "Dho", "Rly", "Itha", "Hast", "Zan", "Gha", "Xal", "Kla"
+        ];
+
+        const syllablesMiddle = [
+            "th", "og", "ul", "ar", "ee", "aa", "oo", "ix", "en", "ath", "esh", "ok", "um", "i"
+        ];
+
+        const syllablesEnd = [
+            "hu", "oth", "ai", "on", "ka", "is", "oth", "az", "eth", "ax", "u", "il", "ag", "ek"
+        ];
+
+        function generateName() {
+            const syllableCount = Math.floor(Math.random() * 3) + 2; // 2-4 syllables
+            let name = '';
+
+            for (let i = 0; i < syllableCount; i++) {
+                if (i === 0) {
+                    name += syllablesStart[Math.floor(Math.random() * syllablesStart.length)];
+                } else if (i === syllableCount - 1) {
+                    name += syllablesEnd[Math.floor(Math.random() * syllablesEnd.length)];
+                } else {
+                    name += syllablesMiddle[Math.floor(Math.random() * syllablesMiddle.length)];
+                }
+            }
+
+            // Optional apostrophe
+            if (Math.random() < 0.5 && name.length > 2) {
+                const pos = Math.floor(Math.random() * (name.length - 2)) + 1;
+                name = name.slice(0, pos) + "'" + name.slice(pos);
+            }
+
+            document.getElementById('name').textContent = name;
+        }
+    </script>
+
+</body>
+</html>
+
